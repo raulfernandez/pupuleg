@@ -90,8 +90,8 @@ function frameHtml(ej, altBase) {
   if (ej.imagen0 && ej.imagen1) {
     return `
       <div class="frame">
-        <img class="f0" src="${esc(ej.imagen0)}" alt="${esc(altBase)} — inicio" loading="lazy" decoding="async">
-        <img class="f1" src="${esc(ej.imagen1)}" alt="${esc(altBase)} — final" loading="lazy" decoding="async">
+        <img class="f0" src="${esc(ej.imagen0)}" alt="${esc(altBase)} — inicio" decoding="async">
+        <img class="f1" src="${esc(ej.imagen1)}" alt="${esc(altBase)} — final" decoding="async">
         <span class="rep">rep</span>
       </div>`;
   }
@@ -299,8 +299,8 @@ function peldanoHtml(p, extra) {
       <div class="pnum">${esc(p.num || 'META')}</div>
       <div class="pframe">
         ${ej.imagen0 ? `
-          <img class="f0" src="${esc(ej.imagen0)}" alt="${esc(ej.nombre)} inicio" loading="lazy" decoding="async">
-          <img class="f1" src="${esc(ej.imagen1)}" alt="${esc(ej.nombre)} final" loading="lazy" decoding="async">
+          <img class="f0" src="${esc(ej.imagen0)}" alt="${esc(ej.nombre)} inicio" decoding="async">
+          <img class="f1" src="${esc(ej.imagen1)}" alt="${esc(ej.nombre)} final" decoding="async">
         ` : `<div class="ph-inner"><span class="ph-label">Sin foto</span></div>`}
       </div>
       <div class="pbody">
