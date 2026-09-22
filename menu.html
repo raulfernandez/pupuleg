@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Menú Ruta a 90</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F4EF; --surface:#FFFFFF; --ink:#1D221E; --muted:#5E665F; --line:#DADDD3;
+  --fz:#2E5A86; --fz-soft:#E3ECF5; --bj:#6B7A2C; --bj-soft:#ECEFDD; --warn:#9A5B12; --warn-soft:#F6EBDB;
+  --ok:#2F7A4B; --over:#A33A2A;
+  --display:"Familjen Grotesk",system-ui,sans-serif; --body:"Atkinson Hyperlegible",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141715; --surface:#1C201D; --ink:#E7EAE3; --muted:#9BA39B; --line:#2E3430;
+  --fz:#8DB6E0; --fz-soft:#1E2B38; --bj:#B5C66E; --bj-soft:#262C1A; --warn:#E0A860; --warn-soft:#2E2417; --ok:#7CC897; --over:#E88A7A; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#141715; --surface:#1C201D; --ink:#E7EAE3; --muted:#9BA39B; --line:#2E3430;
+  --fz:#8DB6E0; --fz-soft:#1E2B38; --bj:#B5C66E; --bj-soft:#262C1A; --warn:#E0A860; --warn-soft:#2E2417; --ok:#7CC897; --over:#E88A7A; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:24px;font-weight:600}
+h3{font-size:17px;font-weight:600}
+p{margin:0;max-width:68ch}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:14px}
+.targets{display:flex;flex-wrap:wrap;gap:10px}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font:500 13px/1.2 var(--mono)}
+.tag.fz{background:var(--fz-soft);color:var(--fz)} .tag.bj{background:var(--bj-soft);color:var(--bj)}
+.tag.neutral{background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.note{background:var(--warn-soft);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.note strong{color:var(--warn)}
+section{display:flex;flex-direction:column;gap:16px}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px 4px 9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font:600 15px/1 var(--display)}
+.day small{font:400 11px/1.1 var(--mono);color:var(--muted)}
+.day .dot{width:8px;height:8px;border-radius:50%}
+.day[data-t="F"] .dot{background:var(--fz)} .day[data-t="B"] .dot{background:var(--bj)}
+.day[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.day:focus-visible,.chip:focus-visible{outline:2px solid var(--fz);outline-offset:2px}
+.dayhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px}
+.meters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.meter{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.meter .v{font:500 18px/1 var(--mono)} .meter .v small{font-size:12px;color:var(--muted)}
+.bar{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.bar i.hi{background:var(--over)}
+.meals{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.meal{display:grid;grid-template-columns:72px 1fr;gap:4px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.meal .time{font:500 14px/1.4 var(--mono);color:var(--muted)}
+.meal .body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:3px 11px;font:500 12px/1.4 var(--mono);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dish{font-weight:700}
+.ing{color:var(--muted);font-size:14.5px}
+.mm{font:400 12.5px/1.3 var(--mono);color:var(--muted)}
+.fixed .dish{font-weight:400}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+th{font:500 11.5px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td:first-child{font-family:var(--display);font-weight:600}
+tr:last-child td{border-bottom:0}
+tfoot td{font-weight:500;background:var(--bg)}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font:500 11.5px/1.5 var(--mono)}
+.pill.F{background:var(--fz-soft);color:var(--fz)} .pill.B{background:var(--bj-soft);color:var(--bj)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.list{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.list li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-block:5px}
+.list li span:last-child{font-family:var(--mono);color:var(--muted);text-align:right}
+.season{display:flex;flex-wrap:wrap;gap:6px}
+.season span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:14px}
+.season span.ar{border-color:var(--bj);color:var(--bj)}
+.qs{display:flex;flex-direction:column;gap:12px;margin:0;padding-left:20px}
+.foot{color:var(--muted);font-size:13.5px}
+@media (max-width:720px){
+  .grid2{grid-template-columns:1fr}
+  .meters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .meal{grid-template-columns:1fr}
+  .day{font-size:13px;padding-inline:0}
+}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .25s ease}}
+</style>.backlinks{display:flex;gap:14px;flex-wrap:wrap}.backlinks a{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fz);text-decoration:none}
+</style>
+</head><body>
+
+<div class="wrap">
+<nav class="backlinks"><a href="./">← Rutina</a><a href="ruta-a-90.html">Plan Ruta a 90</a></nav>
+<header>
+  <span class="eyebrow">Ruta a 90 · fase 1 · 22 sep → 20 oct</span>
+  <h1>Menú semanal</h1>
+  <p>Una semana tipo con lo que sueles comer y producto de temporada de Aragón. Cada comida tiene 2–5 opciones equivalentes: toca una etiqueta para cambiarla y el total del día se recalcula. Cambia lo que quieras, siempre dentro de la misma franja y el mismo tipo de día.</p>
+  <div class="targets">
+    <span class="tag fz">Fuerza L·M·J·S — 1.850 kcal · P180 C150 G58</span>
+    <span class="tag bj">Bajo X·V·D — 1.500 kcal · P170 C65 G62</span>
+    <span class="tag neutral" id="avg">Media semanal —</span>
+  </div>
+  <div class="note">
+    <p><strong>v2 · con tus alimentos.</strong> Fuera el queso batido y el pavo. Entran vaca vieja, marisco, latas (atún), encurtidos, aceitunas, guisantes, borraja, kéfir y requesón. Las claras salen de huevo fresco: las yemas sobrantes van a la tortilla o al revuelto. Todo es comida sin procesar o conserva simple.</p>
+  </div>
+</header>
+
+<section aria-labelledby="h-dia">
+  <h2 id="h-dia">Día a día</h2>
+  <div class="days" role="group" aria-label="Día de la semana" id="days"></div>
+  <div class="dayhead"><h3 id="dayTitle"></h3><span class="mm" id="dayType"></span></div>
+  <div class="meters" id="meters"></div>
+  <div class="meals" id="meals"></div>
+</section>
+
+<section aria-labelledby="h-sem">
+  <h2 id="h-sem">Desglose semanal</h2>
+  <p class="foot">Se actualiza con tus cambios. Pesos en crudo; aceite siempre pesado.</p>
+  <div class="tablewrap"><table id="week"></table></div>
+  <p class="foot">La fibra se queda en ~27 g de media (objetivo 35). Para llegar: arroz y pan integrales, guisantes o judías en la comida y +100 g de verdura en cada cena (≈ +30 kcal).</p>
+</section>
+
+<section aria-labelledby="h-temp">
+  <h2 id="h-temp">De temporada ahora en Zaragoza (finales sep – oct)</h2>
+  <div class="grid2">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h3>Verdura y hortaliza</h3>
+      <div class="season">
+        <span class="ar">Cebolla de Fuentes</span><span>Pimiento rojo y verde</span><span>Judía verde</span><span>Tomate (últimos)</span><span>Berenjena</span><span>Calabacín</span><span>Calabaza</span><span>Acelga</span><span>Espinaca</span><span>Brócoli</span><span>Coliflor</span><span>Puerro</span><span>Champiñón y setas</span><span>Guisantes (congelados)</span><span>Lechuga</span><span class="ar">Borraja (desde oct)</span><span>Alcachofa (finales oct)</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h3>Fruta</h3>
+      <div class="season">
+        <span class="ar">Melocotón de Calanda</span><span>Manzana</span><span>Pera</span><span>Uva</span><span>Higo</span><span>Granada</span><span>Caqui (oct)</span><span>Mandarina (finales oct)</span><span>Membrillo</span>
+      </div>
+    </div>
+  </div>
+  <p class="foot">En verde, lo que es de aquí. Los frutos rojos del plan base pasan a fruta de temporada: ahora mismo son de importación o congelados.</p>
+</section>
+
+<section aria-labelledby="h-compra">
+  <h2 id="h-compra">Lista de la compra (semana según tu selección)</h2>
+  <div class="grid2">
+    <ul class="list" id="shop1"></ul>
+    <ul class="list" id="shop2"></ul>
+  </div>
+</section>
+
+<section aria-labelledby="h-conf">
+  <h2 id="h-conf">Notas</h2>
+  <ol class="qs">
+    <li><b>Omega-3.</b> Con atún al natural y mejillón no llegas a lo que da el pescado azul. Si te animas con sardinas o caballa en lata 2 veces por semana, sobra la cápsula; si no, mantenla.</li>
+    <li><b>Sal.</b> Jamón, latas, aceitunas y piparras juntos suman mucho sodio. Si un día repites dos de ellos, la balanza marcará +0,5–1 kg al día siguiente: es agua, no grasa. Para la revisión de los lunes mira la media de 7 días.</li>
+    <li><b>Vaca vieja</b> ya trae su grasa: se hace sin aceite y está como mucho una vez por semana en días de fuerza. Si la quieres más, cámbiala por ternera magra en la cena.</li>
+    <li><b>Quesos curados y embutido graso</b> (chorizo, lomo embuchado, queso manchego) no están en el menú. Caben 30 g de vez en cuando, pero restando el AOVE o los frutos secos de ese día.</li>
+    <li><b>La entrada «Supplements»</b> de MFP (245–291 kcal): el menú da por hecho whey sola. Si esa entrada es un ganador de peso, sobran ~130 kcal al día.</li>
+  </ol>
+</section>
+<p class="foot">Valores por 100 g sacados de tablas BEDCA/USDA, redondeados. Cada opción está cuadrada para que en cualquier combinación quedes a ±8 % de las calorías y a ±10 g de la proteína objetivo del día.</p>
+</div>
+
+<script>
+const F={pollo:["Pechuga de pollo", 110, 23, 0, 1.5, 0],contramuslo:["Contramuslo de pollo sin piel", 120, 19.5, 0, 4.5, 0],lomo:["Lomo de cerdo fresco", 135, 22, 0, 5, 0],solomillo:["Solomillo de cerdo", 110, 21, 0, 2.5, 0],ternera:["Ternera magra (filete)", 115, 22, 0, 3, 0],vaca:["Vaca vieja (lomo)", 180, 20, 0, 11, 0],marisco:["Marisco (gamba, langostino, sepia, mejillón)", 85, 17, 1.5, 1.2, 0],atun:["Atún al natural (escurrido)", 105, 24, 0, 1, 0],huevo:["Huevo", 142, 12.5, 0.7, 10, 0],claras:["Claras (de huevo fresco)", 50, 11, 0.7, 0.2, 0],jamon:["Jamón serrano sin tocino", 160, 30, 0, 4.5, 0],burgos:["Queso de Burgos 0 %", 75, 13, 3.5, 1, 0],requeson:["Requesón", 100, 11, 3.5, 4.5, 0],kefir:["Kéfir natural", 60, 3.3, 4, 3.5, 0],whey:["Whey", 390, 78, 6, 6, 0],avena:["Copos de avena", 370, 13, 59, 7, 10],arroz:["Arroz", 355, 7, 79, 0.6, 1.3],patata:["Patata", 80, 2, 17, 0.1, 1.5],pan:["Pan integral", 240, 9, 42, 3, 7],lentejas:["Lentejas (en seco)", 320, 24, 48, 1.5, 12],garbanzos:["Garbanzos cocidos", 125, 7, 16, 2.5, 5],guisantes:["Guisantes", 80, 5.4, 14, 0.4, 5.5],aove:["AOVE", 900, 0, 0, 100, 0],almendras:["Almendras", 600, 21, 8, 52, 12],nueces:["Nueces", 660, 15, 7, 65, 7],aceitunas:["Aceitunas", 145, 1, 0, 15, 3],verdura:["Verdura de temporada", 28, 1.9, 4, 0.3, 2.5],ensalada:["Ensalada (lechuga, tomate, cebolla)", 20, 1.1, 3.5, 0.2, 1.5],encurtidos:["Piparras y encurtidos", 25, 1, 4, 0.3, 2],fruta:["Fruta de temporada", 55, 0.6, 12.5, 0.2, 2.5],cafe:["Café", 2, 0.2, 0, 0, 0]};
+const U={huevo:g=>`${Math.round(g/60)} ud`};
+const O={F:{post:[{"k": "A", "d": "Avena con whey y fruta", "i": [["whey", 40], ["avena", 60], ["fruta", 100]], "x": "Avena con agua; whey al final. Fruta: melocotón o manzana."},{"k": "B", "d": "Tostada de jamón con tomate + batido", "i": [["pan", 70], ["jamon", 50], ["ensalada", 60], ["whey", 25]], "x": "Tomate rallado sobre el pan; whey con agua."},{"k": "C", "d": "Revuelto con jamón y tostada", "i": [["huevo", 120], ["claras", 100], ["jamon", 30], ["pan", 60], ["fruta", 100]], "x": "2 huevos + 3 claras. Las yemas que sobran, a la tortilla de la cena."},{"k": "D", "d": "Kéfir con avena, whey y fruta", "i": [["kefir", 250], ["avena", 40], ["whey", 30], ["fruta", 100]], "x": "En frío, sin cocinar."}],com:[{"k": "A", "d": "Arroz con pollo, pimiento y guisantes", "i": [["pollo", 200], ["arroz", 75], ["verdura", 250], ["aove", 10]], "x": "Pimiento rojo, cebolla y un puñado de guisantes."},{"k": "B", "d": "Lentejas estofadas con lomo", "i": [["lentejas", 75], ["lomo", 150], ["verdura", 250], ["aove", 10]], "x": "Cebolla, pimiento, tomate y zanahoria; el lomo en tacos."},{"k": "C", "d": "Vaca vieja con patata y ensalada", "i": [["vaca", 200], ["patata", 200], ["ensalada", 250]], "x": "A la plancha, poco hecha, sin aceite (ya trae su grasa). Patata asada o al micro."},{"k": "D", "d": "Arroz de marisco", "i": [["marisco", 250], ["arroz", 75], ["verdura", 200], ["aove", 10]], "x": "Gamba, sepia y mejillón con sofrito de cebolla, pimiento y tomate."},{"k": "E", "d": "Guisantes con jamón y huevo", "i": [["guisantes", 300], ["jamon", 60], ["huevo", 120], ["verdura", 100], ["aove", 8]], "x": "Clásico: rehogados con cebolla, 2 huevos escalfados encima."}],mer:[{"k": "A", "d": "Queso de Burgos con fruta y almendras", "i": [["burgos", 200], ["fruta", 150], ["almendras", 12]], "x": "Melocotón de Calanda mientras dure; luego caqui o granada."},{"k": "B", "d": "Bocadillo pequeño de jamón + fruta", "i": [["pan", 40], ["jamon", 60], ["fruta", 150], ["almendras", 10]], "x": "Pera o manzana. Aguanta en la mochila."},{"k": "C", "d": "Batido whey + fruta + nueces", "i": [["whey", 35], ["fruta", 150], ["nueces", 15]], "x": "Para la oficina: no necesita nevera."},{"k": "D", "d": "Lata de atún con piparras, aceitunas y tostada", "i": [["atun", 110], ["encurtidos", 40], ["aceitunas", 25], ["pan", 40], ["fruta", 100]], "x": "Una lata grande o dos pequeñas, escurridas."}],cen:[{"k": "A", "d": "Tortilla de huevos y claras con jamón y pisto", "i": [["huevo", 120], ["claras", 250], ["jamon", 30], ["verdura", 350], ["aove", 5]], "x": "Pisto de pimiento, cebolla, calabacín y tomate."},{"k": "B", "d": "Pollo a la plancha con huevo y ensalada", "i": [["pollo", 190], ["huevo", 60], ["ensalada", 350], ["aove", 10]], "x": "Lechuga, tomate, cebolla y piparras."},{"k": "C", "d": "Contramuslo al horno con pimientos y cebolla", "i": [["contramuslo", 250], ["verdura", 350], ["aove", 5]], "x": "Todo en la misma bandeja."},{"k": "D", "d": "Ternera con huevo y borrajas con patata", "i": [["ternera", 180], ["huevo", 60], ["verdura", 300], ["patata", 60], ["aove", 5]], "x": "Borraja o judía verde hervidas con un poco de patata, a la aragonesa."},{"k": "E", "d": "Parrillada de marisco con ensalada", "i": [["marisco", 320], ["ensalada", 350], ["aove", 12]], "x": "Gambas, langostinos y sepia a la plancha con ajo y perejil."}]},B:{post:[{"k": "A", "d": "Americano + batido de whey", "i": [["whey", 30], ["cafe", 100]], "x": "Si un día prefieres solo el café, pasa la whey a la merienda: la proteína del día tiene que llegar."}],com:[{"k": "A", "d": "Pollo con pimientos asados, tomate y almendras", "i": [["pollo", 230], ["verdura", 400], ["aove", 15], ["almendras", 10]], "x": "Sin almidón. Pimientos asados en tanda el domingo."},{"k": "B", "d": "Ternera salteada con garbanzos y judía verde", "i": [["ternera", 220], ["verdura", 400], ["aove", 15], ["garbanzos", 60]], "x": "Un puñado de garbanzos, no un plato."},{"k": "C", "d": "Lomo a la plancha con huevo y parrillada", "i": [["lomo", 200], ["huevo", 60], ["verdura", 400], ["aove", 12]], "x": "Pimiento, cebolla, calabacín y champiñón a la plancha."},{"k": "D", "d": "Ensalada completa de atún y huevo", "i": [["atun", 160], ["huevo", 120], ["ensalada", 400], ["aceitunas", 30], ["aove", 8]], "x": "Lechuga, tomate, cebolla, 2 huevos duros, aceitunas y piparras."}],mer:[{"k": "A", "d": "Queso de Burgos con fruta y almendras", "i": [["burgos", 220], ["fruta", 150], ["almendras", 15]], "x": "Higos, uva o granada."},{"k": "B", "d": "Lata de atún con tomate, piparras, aceitunas y fruta", "i": [["atun", 160], ["ensalada", 150], ["encurtidos", 30], ["aceitunas", 20], ["fruta", 150]], "x": "Una lata grande o dos pequeñas, y una pieza de fruta."},{"k": "C", "d": "Jamón, Burgos y fruta", "i": [["jamon", 60], ["burgos", 100], ["fruta", 150]], "x": ""},{"k": "D", "d": "Requesón con fruta y whey", "i": [["requeson", 150], ["fruta", 150], ["whey", 20]], "x": "La whey mezclada con el requesón."}],cen:[{"k": "A", "d": "Revuelto de setas con jamón y ensalada de tomate", "i": [["huevo", 120], ["claras", 200], ["jamon", 40], ["verdura", 350], ["aove", 10]], "x": ""},{"k": "B", "d": "Parrillada de marisco con ensalada", "i": [["marisco", 330], ["ensalada", 350], ["aove", 15]], "x": ""},{"k": "C", "d": "Contramuslo al ajillo con judía verde", "i": [["contramuslo", 250], ["verdura", 350], ["aove", 8]], "x": ""},{"k": "D", "d": "Pollo en salsa de tomate con borrajas", "i": [["pollo", 230], ["verdura", 350], ["aove", 15]], "x": ""}]}};
+const T={F:[1850,180,150,58],B:[1500,170,65,62]};
+const D=[
+ {n:"Lun",l:"Lunes",t:"F",s:"Push",we:0,sel:{post:"A",com:"A",mer:"A",cen:"B"}},
+ {n:"Mar",l:"Martes",t:"F",s:"Pull",we:0,sel:{post:"B",com:"B",mer:"C",cen:"A"}},
+ {n:"Mié",l:"Miércoles",t:"B",s:"Trail Z2",we:0,sel:{post:"A",com:"A",mer:"A",cen:"C"}},
+ {n:"Jue",l:"Jueves",t:"F",s:"Legs",we:0,sel:{post:"A",com:"C",mer:"D",cen:"D"}},
+ {n:"Vie",l:"Viernes",t:"B",s:"Movilidad",we:0,sel:{post:"A",com:"D",mer:"D",cen:"A"}},
+ {n:"Sáb",l:"Sábado",t:"F",s:"Accesorio",we:1,sel:{post:"C",com:"D",mer:"B",cen:"C"}},
+ {n:"Dom",l:"Domingo",t:"B",s:"Trail Z2",we:1,sel:{post:"A",com:"B",mer:"A",cen:"B"}}];
+const SL=[["post","Post-entreno","07:50","10:00"],["com","Comida","13:00","14:00"],["mer","Merienda","17:00","17:30"],["cen","Cena (cerrada a las 21:00)","20:15","20:15"]];
+let cur=0;
+try{const s=JSON.parse(localStorage.getItem("r90sel2")||"null");if(s&&s.length===7)s.forEach((x,i)=>Object.assign(D[i].sel,x));const c=+localStorage.getItem("r90day");if(c>=0&&c<7)cur=c;}catch(e){}
+const save=()=>{try{localStorage.setItem("r90sel2",JSON.stringify(D.map(d=>d.sel)));localStorage.setItem("r90day",cur)}catch(e){}};
+const mac=items=>{const t=[0,0,0,0,0];items.forEach(([f,g])=>{for(let j=0;j<5;j++)t[j]+=F[f][j+1]*g/100});return t};
+const opt=(d,slot)=>O[d.t][slot].find(o=>o.k===d.sel[slot])||O[d.t][slot][0];
+const dayTot=d=>SL.reduce((a,[s])=>{const m=mac(opt(d,s).i);return a.map((x,j)=>x+m[j])},[0,0,0,0,0]);
+const r=x=>Math.round(x).toLocaleString("es-ES");
+const ingTxt=items=>items.filter(([f,g])=>g>0&&f!=="cafe").map(([f,g])=>`${F[f][0]} ${U[f]?U[f](g):g+" g"}`).join(" · ");
+function renderDays(){
+  document.getElementById("days").innerHTML=D.map((d,i)=>`<button class="day" data-t="${d.t}" aria-pressed="${i===cur}" data-i="${i}"><span class="dot"></span>${d.n}<small>${d.s}</small></button>`).join("");
+  document.querySelectorAll(".day").forEach(b=>b.onclick=()=>{cur=+b.dataset.i;save();render()});
+}
+function renderDay(){
+  const d=D[cur],tg=T[d.t],tt=dayTot(d);
+  document.getElementById("dayTitle").textContent=`${d.l} · ${d.s}`;
+  document.getElementById("dayType").textContent=d.t==="F"?"Día de fuerza · 1.850 kcal":"Día bajo · 1.500 kcal";
+  const lab=[["kcal",""],["Proteína","g"],["Carbohidratos","g"],["Grasa","g"]];
+  document.getElementById("meters").innerHTML=lab.map(([n,u],j)=>{const p=tt[j]/tg[j];return `<div class="meter"><span class="eyebrow">${n}</span><span class="v">${r(tt[j])}<small> / ${r(tg[j])}${u}</small></span><div class="bar"><i class="${p>1.1?"hi":""}" style="width:${Math.min(100,p*100)}%"></i></div></div>`}).join("");
+  const wake=d.we?`<div class="meal fixed"><div class="time">06:00–06:30</div><div class="body"><span class="dish">Pesaje · 500 ml de agua con sal · creatina 5 g · espresso</span><span class="mm">Entreno a las 8:30</span></div></div>`
+    :`<div class="meal fixed"><div class="time">06:00</div><div class="body"><span class="dish">Pesaje · 500 ml de agua con sal · creatina 5 g (sin café)</span><span class="mm">Entreno a las 6:30 · americano doble después</span></div></div>`;
+  document.getElementById("meals").innerHTML=wake+SL.map(([s,name,h1,h2])=>{
+    const os=O[d.t][s],o=opt(d,s),m=mac(o.i);
+    const chips=os.length>1?`<div class="chips" role="group" aria-label="Opciones de ${name}">${os.map(x=>`<button class="chip" data-s="${s}" data-k="${x.k}" aria-pressed="${x.k===o.k}" title="${x.d}">${x.k}</button>`).join("")}</div>`:"";
+    return `<div class="meal"><div class="time">${d.we?h2:h1}</div><div class="body"><span class="eyebrow">${name}</span>${chips}<span class="dish">${o.d}</span><span class="ing">${ingTxt(o.i)}</span>${o.x?`<span class="ing">${o.x}</span>`:""}<span class="mm">${r(m[0])} kcal · P ${r(m[1])} · C ${r(m[2])} · G ${r(m[3])} · fibra ${r(m[4])}</span></div></div>`}).join("");
+  document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{D[cur].sel[b.dataset.s]=b.dataset.k;save();render()});
+}
+function renderWeek(){
+  let sum=[0,0,0,0,0];
+  const rows=D.map(d=>{const t=dayTot(d);sum=sum.map((x,j)=>x+t[j]);
+    const dishes=SL.map(([s])=>opt(d,s).k).join("");
+    return `<tr><td>${d.n}</td><td><span class="pill ${d.t}">${d.t==="F"?"Fuerza":"Bajo"}</span> <span class="mm">${d.s} · ${SL.map(([s])=>s[0].toUpperCase()+opt(d,s).k).join(" ")}</span></td><td>${r(t[0])}</td><td>${r(t[1])}</td><td>${r(t[2])}</td><td>${r(t[3])}</td><td>${r(t[4])}</td></tr>`}).join("");
+  const a=sum.map(x=>x/7);
+  document.getElementById("week").innerHTML=`<thead><tr><th>Día</th><th>Tipo · opciones</th><th>kcal</th><th>P</th><th>C</th><th>G</th><th>Fibra</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td>Media</td><td><span class="mm">objetivo 1.700 kcal · P ≥170</span></td><td>${r(a[0])}</td><td>${r(a[1])}</td><td>${r(a[2])}</td><td>${r(a[3])}</td><td>${r(a[4])}</td></tr></tfoot>`;
+  document.getElementById("avg").textContent=`Media semanal ${r(a[0])} kcal · P${r(a[1])}`;
+  const tot={};D.forEach(d=>SL.forEach(([s])=>opt(d,s).i.forEach(([f,g])=>{if(f!=="cafe"&&g>0)tot[f]=(tot[f]||0)+g})));
+  const fmt=(f,g)=>f==="huevo"?`${Math.round(g/60)} ud`:g>=1000?`${(g/1000).toLocaleString("es-ES",{maximumFractionDigits:1})} kg`:`${Math.round(g/10)*10} g`;
+  const it=Object.entries(tot).sort((a,b)=>b[1]-a[1]).map(([f,g])=>`<li><span>${F[f][0]}</span><span>${fmt(f,g)}</span></li>`);
+  const h=Math.ceil(it.length/2);
+  document.getElementById("shop1").innerHTML=it.slice(0,h).join("");document.getElementById("shop2").innerHTML=it.slice(h).join("");
+}
+function render(){renderDays();renderDay();renderWeek()}
+render();
+</script>
+
+</body></html>
