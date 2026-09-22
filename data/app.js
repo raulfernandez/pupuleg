@@ -177,10 +177,12 @@ function calendarioHtml() {
     <section class="cal" id="calendario">
       <h2 class="section-h">Calendario semanal</h2>
       <p class="section-lead">La semana real es de 7 días, no de 4. El calentamiento de ${esc(PROGRAMA.calentamiento.minutos)} min es obligatorio en toda sesión de 6:30.</p>
-      <table class="cal-table">
-        <thead><tr><th>Día</th><th>Sesión</th><th>Hora</th><th>Notas</th></tr></thead>
-        <tbody>${filas}</tbody>
-      </table>
+      <div class="table-scroll">
+        <table class="cal-table">
+          <thead><tr><th>Día</th><th>Sesión</th><th>Hora</th><th>Notas</th></tr></thead>
+          <tbody>${filas}</tbody>
+        </table>
+      </div>
       <p class="cue cal-warmup">${esc(PROGRAMA.calentamiento.nota)}</p>
     </section>`;
 }
@@ -282,10 +284,12 @@ function autorregulacionHtml() {
     <section class="prog" id="autorregulacion">
       <h2>Autorregulación — check-in diario</h2>
       <p class="road-intro">${esc(r.checkIn)}</p>
-      <table class="cal-table">
-        <thead><tr><th>Señal</th><th>Acción</th></tr></thead>
-        <tbody>${filas}</tbody>
-      </table>
+      <div class="table-scroll">
+        <table class="cal-table">
+          <thead><tr><th>Señal</th><th>Acción</th></tr></thead>
+          <tbody>${filas}</tbody>
+        </table>
+      </div>
       <h2>Orden de recorte cuando el sueño se rompe</h2>
       <p class="road-intro">${esc(orden.principio)}</p>
       <ul class="recorte-list">${recorte}</ul>
