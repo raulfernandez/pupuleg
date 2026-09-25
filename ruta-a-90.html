@@ -1,0 +1,880 @@
+<!doctype html><html lang="es"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Ruta a 90</title></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#F4F5F7;
+  --surface:#FFFFFF;
+  --surface-2:#EDEFF3;
+  --ink:#14171A;
+  --muted:#656C75;
+  --line:#DCE0E6;
+  --line-strong:#C3C9D2;
+  --accent:#1D4E89;
+  --accent-ink:#173F70;
+  --accent-soft:#E6EEF8;
+  --good:#15803D;
+  --good-soft:#E3F3E8;
+  --warn:#9A5B08;
+  --warn-soft:#FBEFDC;
+  --alert:#A82A22;
+  --alert-soft:#FAE8E6;
+  --shadow:0 1px 2px rgba(20,23,26,.06),0 6px 16px -10px rgba(20,23,26,.18);
+
+  --f-display:"Barlow Condensed",ui-sans-serif,system-ui,"Arial Narrow",sans-serif;
+  --f-body:"Source Sans 3",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1216;
+    --surface:#171B21;
+    --surface-2:#1E242C;
+    --ink:#E7EAEE;
+    --muted:#98A0AA;
+    --line:#282F38;
+    --line-strong:#3A434F;
+    --accent:#6BA5DE;
+    --accent-ink:#9CC5EC;
+    --accent-soft:#16273A;
+    --good:#5DD48A;
+    --good-soft:#12271B;
+    --warn:#E0A63F;
+    --warn-soft:#2A1F0E;
+    --alert:#F08A82;
+    --alert-soft:#2C1614;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1216;
+  --surface:#171B21;
+  --surface-2:#1E242C;
+  --ink:#E7EAEE;
+  --muted:#98A0AA;
+  --line:#282F38;
+  --line-strong:#3A434F;
+  --accent:#6BA5DE;
+  --accent-ink:#9CC5EC;
+  --accent-soft:#16273A;
+  --good:#5DD48A;
+  --good-soft:#12271B;
+  --warn:#E0A63F;
+  --warn-soft:#2A1F0E;
+  --alert:#F08A82;
+  --alert-soft:#2C1614;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px -12px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.55;
+  margin:0;
+  padding-inline:16px;
+  padding-block:0 72px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px;margin:0 auto}
+
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.05;text-wrap:balance;margin:0}
+.num,.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- masthead ---------- */
+.mast{padding-block:44px 28px;border-bottom:2px solid var(--ink)}
+.kicker{
+  font-family:var(--f-mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;
+}
+.kicker .sep{color:var(--line-strong)}
+h1{font-size:clamp(46px,13vw,86px);letter-spacing:-.015em;margin-block:10px 0}
+h1 .unit{color:var(--muted);font-weight:500}
+.dek{font-size:18px;color:var(--muted);max-width:60ch;margin-block:14px 0}
+.dek b{color:var(--ink);font-weight:600}
+
+/* ---------- verdict ---------- */
+.verdict{
+  margin-block:28px;padding:22px 24px;border-radius:3px;
+  background:var(--surface);border:1px solid var(--line);
+  border-left:5px solid var(--accent);box-shadow:var(--shadow);
+}
+.verdict h2{font-size:26px;letter-spacing:.005em}
+.verdict p{margin-block:10px 0;color:var(--muted)}
+.verdict p b{color:var(--ink)}
+
+/* ---------- stat strip ---------- */
+.stats{
+  display:grid;gap:1px;background:var(--line);
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  border:1px solid var(--line);margin-block:28px;
+}
+.stat{background:var(--surface);padding:16px 18px}
+.stat dt{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 8px;
+}
+.stat dd{margin:0;font-family:var(--f-mono);font-size:27px;font-weight:600;letter-spacing:-.02em;line-height:1}
+.stat dd small{font-size:13px;font-weight:400;color:var(--muted);letter-spacing:0}
+.stat .note{font-size:13px;color:var(--muted);margin-top:7px;font-family:var(--f-body)}
+.is-bad dd{color:var(--alert)}
+.is-good dd{color:var(--good)}
+
+/* ---------- sections ---------- */
+section{margin-block:52px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line-strong);padding-bottom:9px;margin-bottom:24px;flex-wrap:wrap}
+.sec-n{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.06em}
+.sec-head h2{font-size:32px;letter-spacing:.004em;flex:1;min-width:180px}
+.sec-head .aside{font-size:13.5px;color:var(--muted)}
+h3{font-size:21px;margin-block:30px 12px;letter-spacing:.006em}
+h4{font-family:var(--f-body);font-weight:700;font-size:14px;margin-block:20px 8px}
+p{margin-block:0 14px}
+p:last-child{margin-bottom:0}
+.lede{font-size:17px}
+strong{font-weight:700}
+em.q{font-style:normal;background:var(--accent-soft);color:var(--accent-ink);padding:1px 5px;border-radius:2px;font-weight:600}
+
+/* ---------- chart ---------- */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:18px 14px 10px;box-shadow:var(--shadow)}
+.chart svg{display:block;width:100%;height:auto;max-width:100%}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:12px 8px 6px;font-size:13px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:7px}
+.swatch{width:16px;height:3px;border-radius:2px;flex:none}
+
+/* ---------- phase cards ---------- */
+.phases{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.phase{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:3px;padding:18px 18px 20px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.phase.hold{border-top-color:var(--warn)}
+.phase.finish{border-top-color:var(--good)}
+.phase .ph-n{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.phase h3{font-size:24px;margin-block:6px 2px}
+.phase .dates{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.phase .target{font-family:var(--f-mono);font-size:19px;font-weight:600;padding:8px 0;border-block:1px solid var(--line);margin-bottom:12px}
+.phase ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--muted)}
+.phase li{margin-bottom:6px}
+.phase li b{color:var(--ink);font-weight:600}
+
+/* ---------- tables ---------- */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-block:14px}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:14.5px}
+caption{
+  text-align:left;padding:13px 16px 11px;font-family:var(--f-display);
+  font-size:19px;font-weight:600;border-bottom:1px solid var(--line);color:var(--ink);
+}
+caption .cap-note{font-family:var(--f-body);font-size:13px;font-weight:400;color:var(--muted);display:block;margin-top:3px;line-height:1.4}
+th,td{text-align:left;padding:9px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;background:var(--surface-2);
+}
+tbody tr:last-child td{border-bottom:0}
+td.n,th.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.key{font-weight:600}
+.chg{font-family:var(--f-mono);font-size:12.5px;color:var(--warn);display:block;margin-top:2px}
+
+/* ---------- macro cards ---------- */
+.macros{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.macro{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:18px;box-shadow:var(--shadow)}
+.macro .mh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:4px}
+.macro .mh h4{margin:0;font-family:var(--f-display);font-size:22px;font-weight:600}
+.macro .days{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.macro .kcal{font-family:var(--f-mono);font-size:34px;font-weight:600;letter-spacing:-.02em;color:var(--accent);line-height:1.1}
+.macro .kcal small{font-size:14px;color:var(--muted);font-weight:400}
+.bars{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.bar-row{display:grid;grid-template-columns:22px 1fr 92px;gap:9px;align-items:center;font-size:13px}
+.bar-row .lbl{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+.bar-track{height:9px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px}
+.bar-row .val{font-family:var(--f-mono);font-size:12.5px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ---------- callouts ---------- */
+.call{border:1px solid var(--line);border-left:4px solid var(--warn);background:var(--warn-soft);padding:16px 18px;border-radius:3px;margin-block:18px;font-size:15px}
+.call.blue{border-left-color:var(--accent);background:var(--accent-soft)}
+.call.red{border-left-color:var(--alert);background:var(--alert-soft)}
+.call .ct{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;display:block;margin-bottom:6px;color:var(--ink)}
+.call p{margin-bottom:8px}
+.call ul{margin:8px 0 0;padding-left:18px}
+.call li{margin-bottom:5px}
+
+/* ---------- week grid ---------- */
+.week{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);grid-template-columns:repeat(auto-fit,minmax(112px,1fr));margin-block:16px}
+.day{background:var(--surface);padding:13px 12px 15px;min-height:128px;display:flex;flex-direction:column}
+.day .dn{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.day .dt{font-family:var(--f-display);font-size:19px;font-weight:600;line-height:1.1;margin-bottom:5px}
+.day .dd{font-size:12.5px;color:var(--muted);line-height:1.4;flex:1}
+.day .kc{font-family:var(--f-mono);font-size:11.5px;margin-top:9px;padding-top:7px;border-top:1px solid var(--line);color:var(--accent);font-weight:500}
+.day.lift .dt{color:var(--accent)}
+.day.run .dt{color:var(--good)}
+.day.rest .dt{color:var(--muted)}
+
+/* ---------- milestones ---------- */
+.ms{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:3px;background:var(--surface);box-shadow:var(--shadow)}
+.ms li{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:start;padding:13px 16px;border-bottom:1px solid var(--line)}
+.ms li:last-child{border-bottom:0}
+.ms li.star{background:var(--accent-soft)}
+.ms input[type=checkbox]{width:19px;height:19px;margin:2px 0 0;accent-color:var(--accent);flex:none;cursor:pointer}
+.ms .mtxt{min-width:0}
+.ms .mtitle{font-weight:600;font-size:15.5px}
+.ms .mtitle .mw{font-family:var(--f-mono);font-size:19px;font-weight:600;margin-right:9px;color:var(--accent)}
+.ms .msub{font-size:13.5px;color:var(--muted);margin-top:2px}
+.ms .mdate{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap;text-align:right;padding-top:3px}
+.ms li.done .mtitle,.ms li.done .msub{text-decoration:line-through;opacity:.5}
+.ms-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+
+/* ---------- rules list ---------- */
+.rules{counter-reset:r;list-style:none;margin:0;padding:0}
+.rules li{counter-increment:r;position:relative;padding-left:40px;margin-bottom:14px;font-size:15px}
+.rules li::before{
+  content:counter(r,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--accent);
+  border:1px solid var(--line-strong);border-radius:2px;padding:2px 5px;line-height:1;
+}
+.rules li b{font-weight:700}
+
+ul.plain{margin:0 0 14px;padding-left:19px}
+ul.plain li{margin-bottom:7px}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer .mono{font-size:12px}
+
+/* ---------- MFP config ---------- */
+.cfg{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);margin-block:16px;overflow:hidden}
+.cfg-h{background:var(--ink);color:var(--ground);padding:12px 18px;font-family:var(--f-display);font-size:19px;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.cfg-h .tag{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;opacity:.72;font-weight:500}
+.cfg-body{padding:6px 18px 16px}
+.cfg-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.cfg-row:last-child{border-bottom:0}
+.cfg-row .fld{font-size:14.5px}
+.cfg-row .fld small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
+.cfg-row .v{font-family:var(--f-mono);font-size:17px;font-weight:600;color:var(--accent);white-space:nowrap;font-variant-numeric:tabular-nums}
+.cfg-row .v.off{color:var(--alert)}
+
+@media (max-width:560px){
+  .mast{padding-block:32px 22px}
+  .dek{font-size:16.5px}
+  .sec-head h2{font-size:27px}
+  .stat dd{font-size:23px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+<a class="backlink" href="./" style="display:inline-block;margin-top:16px;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);text-decoration:none">← Rutina</a> <a class="backlink" href="menu.html" style="display:inline-block;margin:16px 0 0 14px;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);text-decoration:none">Menú semanal →</a>
+
+<header class="mast">
+  <div class="kicker">
+    <span>Plan de recomposición</span><span class="sep">/</span>
+    <span>Raúl F. G.</span><span class="sep">/</span>
+    <span>182 cm · 43 a</span><span class="sep">/</span>
+    <span>22 Sep 2026</span>
+  </div>
+  <h1>Ruta a 90<span class="unit"> kg</span></h1>
+  <p class="dek">Doce kilos y pico desde <b>102,3 kg</b>, en tres fases construidas alrededor de la llegada de Alba. El entrenamiento que ya haces se queda: lo que cambia es el déficit, la proteína y qué se toca cuando dormir deje de ser una opción.</p>
+</header>
+
+<div class="verdict">
+  <h2>No es músculo. Son las dos últimas semanas de comida.</h2>
+  <p>Del 24 ago al 9 sep bajaste a <b>−1,0 kg/semana</b>. Del 9 al 22 sep subiste a <b>+0,4 kg/semana</b>. En ese mismo punto tu ingesta media pasó de <b>1.919</b> a <b>2.586 kcal/día</b>, con cinco días por encima de 2.870 en una ventana de ocho. La báscula no se atascó: dejó de haber déficit.</p>
+  <p>Con 1,28 g/kg de proteína, un mes de entrenamiento y déficit casi nulo, la ganancia muscular máxima realista a los 43 años ronda los <b>0,2–0,3 kg</b>. Eso no tapa nada. Y la fase 1 ya demostró que tu báscula responde perfectamente cuando el déficit existe.</p>
+</div>
+
+<dl class="stats">
+  <div class="stat"><dt>Mantenimiento registrado</dt><dd>2.460<small> kcal</small></dd><div class="note">Deducido de tus propios datos, no de una fórmula</div></div>
+  <div class="stat is-bad"><dt>Proteína actual</dt><dd>130<small> g</small></dd><div class="note">1,28 g/kg — faltan ~50 g diarios</div></div>
+  <div class="stat is-bad"><dt>Fibra actual</dt><dd>13<small> g</small></dd><div class="note">Objetivo 35 g. Aquí vive tu hambre</div></div>
+  <div class="stat is-bad"><dt>Desviación típica</dt><dd>±698<small> kcal</small></dd><div class="note">Rango real 1.177 – 4.043 kcal/día</div></div>
+</dl>
+
+<!-- ============ 01 TRAYECTORIA ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-n">01</span>
+    <h2>La trayectoria</h2>
+    <span class="aside">23 semanas · meseta incluida a propósito</span>
+  </div>
+
+  <p class="lede">La meseta de noviembre <strong>está planificada</strong>. No es un fallo del plan: es el plan. Un recién nacido destroza el sueño, y el sueño roto sube el hambre y hunde la recuperación. Intentar un déficit agresivo ahí es como se pierden estos proyectos.</p>
+
+  <div class="chart">
+    <svg viewBox="0 0 720 248" role="img" aria-label="Trayectoria proyectada de peso desde 102,3 kg en septiembre de 2026 hasta 90 kg el 2 de marzo de 2027, con una meseta de mantenimiento entre finales de octubre y primeros de diciembre.">
+      <!-- grid -->
+      <g stroke="var(--line)" stroke-width="1">
+        <line x1="58" y1="36.3" x2="692" y2="36.3"></line>
+        <line x1="58" y1="73.1" x2="692" y2="73.1"></line>
+        <line x1="58" y1="110.0" x2="692" y2="110.0"></line>
+        <line x1="58" y1="146.9" x2="692" y2="146.9"></line>
+      </g>
+      <line x1="58" y1="183.7" x2="692" y2="183.7" stroke="var(--good)" stroke-width="1.5" stroke-dasharray="5 4"></line>
+      <!-- y labels -->
+      <g fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="end">
+        <text x="50" y="40.3">102</text>
+        <text x="50" y="77.1">99</text>
+        <text x="50" y="114.0">96</text>
+        <text x="50" y="150.9">93</text>
+      </g>
+      <text x="50" y="187.7" fill="var(--good)" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" text-anchor="end">90</text>
+      <!-- phase 2 band -->
+      <rect x="168.3" y="24" width="165.4" height="172" fill="var(--warn-soft)"></rect>
+      <text x="251" y="44" fill="var(--warn)" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" letter-spacing="1.2" text-anchor="middle">MESETA · ALBA</text>
+      <!-- lines -->
+      <polyline fill="none" stroke="var(--accent)" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" points="58.0,32.6 85.6,41.4 113.1,50.3 140.7,59.1 168.3,68.0"></polyline>
+      <polyline fill="none" stroke="var(--warn)" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" points="168.3,68.0 195.8,68.6 223.4,69.2 251.0,69.8 278.5,70.4 306.1,71.1 333.7,71.7"></polyline>
+      <polyline fill="none" stroke="var(--good)" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" points="333.7,71.7 361.2,80.5 388.8,89.4 416.3,98.2 443.9,107.1 471.5,115.9 499.0,124.7 526.6,133.6 554.2,142.4 581.7,151.3 609.3,160.1 636.9,169.0 664.4,177.8 692.0,183.7"></polyline>
+      <!-- endpoints -->
+      <circle cx="58" cy="32.6" r="4.5" fill="var(--accent)"></circle>
+      <text x="64" y="26" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="600">102,3 hoy</text>
+      <circle cx="692" cy="183.7" r="5" fill="var(--good)"></circle>
+      <text x="684" y="176" fill="var(--good)" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" text-anchor="end">90,0</text>
+      <!-- x axis -->
+      <line x1="58" y1="196" x2="692" y2="196" stroke="var(--line-strong)" stroke-width="1"></line>
+      <g fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">
+        <text x="58" y="212">SEP</text>
+        <text x="113.1" y="212">OCT</text>
+        <text x="223.4" y="212">NOV</text>
+        <text x="333.7" y="212">DIC</text>
+        <text x="471.5" y="212">ENE</text>
+        <text x="581.7" y="212">FEB</text>
+        <text x="686" y="212">MAR</text>
+      </g>
+      <text x="375" y="236" fill="var(--muted)" font-family="Source Sans 3, sans-serif" font-size="11.5" text-anchor="middle" font-style="italic">Media móvil de 7 días. Los días sueltos se moverán ±1,5 kg por agua y sodio — no significan nada.</text>
+    </svg>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--accent)"></i> Fase 1 · Empujar (−0,72 kg/sem)</span>
+      <span><i class="swatch" style="background:var(--warn)"></i> Fase 2 · Sostener (mantenimiento)</span>
+      <span><i class="swatch" style="background:var(--good)"></i> Fase 3 · Rematar (−0,72 kg/sem)</span>
+    </div>
+  </div>
+
+  <div class="phases" style="margin-top:22px">
+    <div class="phase">
+      <span class="ph-n">Fase 1 · 4 semanas</span>
+      <h3>Empujar</h3>
+      <div class="dates">22 sep → 20 oct</div>
+      <div class="target">102,3 → 99,4 kg</div>
+      <ul>
+        <li><b>1.700 kcal</b> de media semanal</li>
+        <li>Rutina completa: 4 días de fuerza, 2 carreras, movilidad</li>
+        <li>Báscula a diario, juicio solo semanal</li>
+        <li>Aquí se hace el trabajo duro, mientras todavía duermes</li>
+      </ul>
+    </div>
+    <div class="phase hold">
+      <span class="ph-n">Fase 2 · ~6 semanas</span>
+      <h3>Sostener</h3>
+      <div class="dates">20 oct → 1 dic</div>
+      <div class="target">99,4 kg · mantener</div>
+      <ul>
+        <li><b>2.400 kcal</b> — mantenimiento, sin déficit</li>
+        <li>2 sesiones full-body de 45 min. Si solo sale 1, es 1</li>
+        <li>Suelo de proteína <b>160 g</b> — lo único innegociable</li>
+        <li>Éxito = <b>no subir</b>. Lo que baje es regalo</li>
+        <li>Pésate una vez por semana, no más</li>
+      </ul>
+    </div>
+    <div class="phase finish">
+      <span class="ph-n">Fase 3 · ~13 semanas</span>
+      <h3>Rematar</h3>
+      <div class="dates">1 dic → ~2 mar</div>
+      <div class="target">99,4 → 90,0 kg</div>
+      <ul>
+        <li>Vuelta al plan completo de la fase 1</li>
+        <li>Revisión de calorías al reanudar: pesarás menos, gastarás menos</li>
+        <li>Navidad dentro: un día libre, no una semana</li>
+        <li>Objetivo realista: <b>primeros de marzo de 2027</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 NUTRICIÓN ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-n">02</span>
+    <h2>Objetivos y macros</h2>
+    <span class="aside">Media semanal 1.700 kcal · déficit ≈760 kcal/día</span>
+  </div>
+
+  <p class="lede">Tus propios datos te dan el mantenimiento sin necesidad de fórmulas: mantuviste el peso plano a <em class="q">~2.460 kcal registradas</em> durante tres semanas. Mientras registres igual que hasta ahora, ese número es el que manda — el margen de error de registro se cancela en ambos lados.</p>
+
+  <p>Todo esto cae en <strong>cuatro tomas</strong> colgadas de tus horarios fijos: post-entreno, comida de las 13:00, merienda y cena cerrada a las 21:00. Dos niveles de calorías, no siete: alto los días de hierro, bajo el resto.</p>
+
+  <div class="macros">
+    <div class="macro">
+      <div class="mh"><h4>Día de fuerza</h4><span class="days">Lun · Mar · Jue · Sáb</span></div>
+      <div class="kcal">1.850 <small>kcal</small></div>
+      <div class="bars">
+        <div class="bar-row"><span class="lbl">P</span><div class="bar-track"><div class="bar-fill" style="width:39%;background:var(--accent)"></div></div><span class="val">180 g · 39 %</span></div>
+        <div class="bar-row"><span class="lbl">C</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--good)"></div></div><span class="val">150 g · 32 %</span></div>
+        <div class="bar-row"><span class="lbl">G</span><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--warn)"></div></div><span class="val">58 g · 28 %</span></div>
+      </div>
+    </div>
+    <div class="macro">
+      <div class="mh"><h4>Día bajo</h4><span class="days">Mié · Vie · Dom</span></div>
+      <div class="kcal">1.500 <small>kcal</small></div>
+      <div class="bars">
+        <div class="bar-row"><span class="lbl">P</span><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--accent)"></div></div><span class="val">170 g · 45 %</span></div>
+        <div class="bar-row"><span class="lbl">C</span><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--good)"></div></div><span class="val">65 g · 17 %</span></div>
+        <div class="bar-row"><span class="lbl">G</span><div class="bar-track"><div class="bar-fill" style="width:37%;background:var(--warn)"></div></div><span class="val">62 g · 37 %</span></div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--muted);margin-top:12px">Los porcentajes son la referencia; en MFP escribes los gramos. Fíjate en que la proteína se mantiene casi igual entre los dos días —180 y 170 g— y lo que se mueve son los carbohidratos: <strong>la comida entra y sale según entrenes, la proteína no se toca nunca</strong>.</p>
+
+  <h3>Configurar MyFitnessPal</h3>
+  <p>Con Premium tienes las dos cosas que este plan necesita: <strong>objetivos en gramos</strong>, sin redondeos de porcentaje, y <strong>objetivos distintos por día de la semana</strong>. Los porcentajes de arriba quedan solo como referencia — lo que escribes son los gramos.</p>
+
+  <div class="cfg">
+    <div class="cfg-h"><span>Objetivos por día de la semana</span><span class="tag">Objetivos → Objetivos diarios por día</span></div>
+    <div class="cfg-body">
+      <div class="cfg-row"><div class="fld">Lunes · Martes · Jueves · Sábado<small>Push, Pull, Legs, accesorio</small></div><div class="v">1.850 kcal<br>P 180 · C 150 · G 58</div></div>
+      <div class="cfg-row"><div class="fld">Miércoles · Viernes · Domingo<small>Trail, movilidad</small></div><div class="v">1.500 kcal<br>P 170 · C 65 · G 62</div></div>
+      <div class="cfg-row"><div class="fld">Media semanal resultante<small>Es el único número que mueve la báscula</small></div><div class="v">1.700 kcal</div></div>
+      <div class="cfg-row"><div class="fld">Ajuste de calorías por ejercicio<small>Ajustes → Pasos, y también dentro de la conexión con Garmin</small></div><div class="v off">DESACTIVADO</div></div>
+    </div>
+  </div>
+
+  <div class="call blue">
+    <span class="ct">Dos trampas al configurarlo</span>
+    <ul>
+      <li><strong>No uses el objetivo que calcula la app.</strong> Si le dices «perder 0,75 kg/semana» te dará un número salido de una fórmula con tu nivel de actividad, y no será este. El 1.700 viene de tus tres semanas planas a 2.460 kcal: es un dato tuyo, no una tabla. Escribe las cifras a mano en <em class="q">Objetivos → Calorías, carbohidratos, proteínas y grasas</em>.</li>
+      <li><strong>Si te sientes plano a las tres semanas</strong> —sin chispa en las series pesadas, peor sueño, libido baja— mueve carbohidratos a grasa sin tocar la proteína ni el total: días de fuerza <span class="mono">P 180 · C 125 · G 70</span>, días bajos <span class="mono">P 170 · C 50 · G 69</span>. Los 58 g de partida están en el suelo razonable para tu peso, y no todo el mundo está cómodo ahí.</li>
+    </ul>
+  </div>
+
+  <p style="font-size:14px;color:var(--muted)">Los nombres exactos de los menús cambian entre versiones; si alguno no te aparece con estas palabras, búscalo por «objetivos» y «ajuste de calorías». Ya que estás en Premium, activa también la vista de <strong>macros por comida</strong>: es lo que te avisa de que has llegado a la cena con 60 g de proteína pendientes, cuando todavía puedes arreglarlo.</p>
+
+  <h3>Por qué 180 g de proteína y no 210</h3>
+  <p>A 102 kg con ~29 % de grasa corporal, escalar la proteína al peso total sobreestima: la grasa no necesita alimentarse. Escalada a masa magra (~72 kg) o a tu peso objetivo, <strong>180 g equivalen a 2,5 g/kg de masa magra y 2,0 g/kg de los 90 kg de destino</strong> — el rango donde está la evidencia para retener músculo en déficit. Además deja hueco para 58 g de grasa, que a los 43 no conviene bajar mucho más.</p>
+
+  <h3>Tu ventana real: once horas</h3>
+  <p>Con la cena cerrada a las 21:00 y el post-entreno a las 7:50, el ayuno te queda en <strong>10 h 50 min limpias</strong>, con la sesión al final. Eso es una ventana nocturna normal y bien construida — no hay nada que arreglar ahí. <strong>Lo que sí es innegociable los días de fuerza es el post-entreno.</strong> Si lo saltas y estiras hasta la comida de las 13:00, el ayuno se te va a <strong>16 horas con sentadilla o peso muerto en medio</strong>, cuatro veces por semana y en déficit. Ahí sí se paga en músculo.</p>
+  <p>El resto encaja solo, y una cosa encaja especialmente bien: <strong>el americano doble de después de entrenar es exactamente donde tiene que estar</strong>. Ese es tu desayuno. No hay que cambiar nada de tu rutina de café entre semana.</p>
+
+  <h3>Día de fuerza · lunes a viernes</h3>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px">Lunes (Push) · Martes (Pull) · Jueves (Legs). Cuatro tomas de ~45 g de proteína, que es el reparto que mejor funciona.</p>
+  <div class="scroll">
+    <table>
+      <caption>1.850 kcal · P 180 · C 150 · G 58<span class="cap-note">Estructura, no menú. Cambia los alimentos y respeta las columnas. Todo pesado en crudo.</span></caption>
+      <thead><tr><th class="n">Hora</th><th>Contenido</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">G</th></tr></thead>
+      <tbody>
+        <tr><td class="n key">06:00</td><td><strong>Te levantas. Pesaje.</strong> Después: 500 ml de agua + 1–2 g de sal (o un sobre de electrolitos) + 5 g de creatina<br><span style="color:var(--muted);font-size:13px">Sin café todavía, como prefieres. Vienes de nueve horas sin beber y vas a meter series pesadas.</span></td><td class="n">~5</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+        <tr style="background:var(--accent-soft)"><td class="n key">06:30</td><td colspan="5"><strong>Entreno — 60 a 75 min</strong></td></tr>
+        <tr><td class="n key">07:50</td><td><strong>Americano doble + rompes el ayuno.</strong> 45 g de whey + 70 g de avena con canela<br><span style="color:var(--muted);font-size:13px">Avena remojada de la noche anterior y el shaker con el polvo ya medido. Se puede tomar en la oficina.</span></td><td class="n">450</td><td class="n">45</td><td class="n">51</td><td class="n">5</td></tr>
+        <tr><td class="n key">13:00</td><td><strong>Comida — la hora fija.</strong> 230 g de pollo, pavo o ternera magra · 160 g de arroz cocido (o 200 g de patata, o 200 g de legumbre) · 250 g de verdura · <strong>15 g de AOVE pesado</strong></td><td class="n">655</td><td class="n">61</td><td class="n">55</td><td class="n">20</td></tr>
+        <tr><td class="n key">17:00</td><td><strong>Merienda.</strong> 200 g de yogur griego 0 % + 80 g de frutos rojos + 20 g de almendras<br><span style="color:var(--muted);font-size:13px">Si estás en reunión: un cacito de whey y la fruta, y las almendras luego.</span></td><td class="n">275</td><td class="n">25</td><td class="n">18</td><td class="n">10</td></tr>
+        <tr><td class="n key">20:15</td><td><strong>Cena — tenedor abajo a las 21:00.</strong> 150 g de pescado blanco + 2 huevos · 350 g de verdura · <strong>10 g de AOVE pesado</strong></td><td class="n">480</td><td class="n">50</td><td class="n">14</td><td class="n">23</td></tr>
+        <tr style="background:var(--surface-2)"><td class="n key">Total</td><td>Fibra ≈ 35 g · Ayuno 21:00 → 07:50</td><td class="n"><strong>1.860</strong></td><td class="n"><strong>181</strong></td><td class="n"><strong>138</strong></td><td class="n"><strong>58</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Van 12 g de carbohidratos por debajo del objetivo: súbelos con 15 g más de avena por la mañana o una pieza de fruta en la merienda. El ajuste fino déjaselo a MFP, que para eso lo estás configurando.</p>
+
+  <h3>Día bajo · miércoles y viernes</h3>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px">Miércoles trail Z2 a las 6:30 · Viernes movilidad. Aquí <strong>sí puedes estirar hasta las 13:00</strong>: correr suave en ayunas está perfectamente bien y no hay estímulo de fuerza que rescatar.</p>
+  <div class="scroll">
+    <table>
+      <caption>1.500 kcal · P 170 · C 65 · G 62<span class="cap-note">Lo que desaparece es el almidón. La proteína y el aceite se quedan.</span></caption>
+      <thead><tr><th class="n">Hora</th><th>Contenido</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">G</th></tr></thead>
+      <tbody>
+        <tr><td class="n key">06:00</td><td><strong>Pesaje.</strong> Agua con sal + 5 g de creatina</td><td class="n">~5</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+        <tr style="background:var(--good-soft)"><td class="n key">06:30</td><td colspan="5"><strong>Trail Z2 — 40 a 50 min</strong> <span style="font-weight:400">(viernes: movilidad 30 min + paseo)</span></td></tr>
+        <tr><td class="n key">07:50</td><td>Americano doble. <strong>Opcional:</strong> 30 g de whey si te levantas con hambre — sale del total del día, no se suma<br><span style="color:var(--muted);font-size:13px">Sin él llegas a las 13:00 con 16 h de ayuno, que en un día sin hierro es perfectamente llevadero.</span></td><td class="n">0–120</td><td class="n">0–24</td><td class="n">0</td><td class="n">0</td></tr>
+        <tr><td class="n key">13:00</td><td><strong>Comida.</strong> 250 g de proteína magra · 100 g de legumbre cocida · 350 g de verdura · <strong>sin arroz, patata ni pan</strong> · 15 g de AOVE</td><td class="n">635</td><td class="n">70</td><td class="n">30</td><td class="n">22</td></tr>
+        <tr><td class="n key">17:00</td><td><strong>Merienda.</strong> 200 g de queso batido 0 % o yogur griego + 20 g de almendras</td><td class="n">235</td><td class="n">24</td><td class="n">10</td><td class="n">10</td></tr>
+        <tr><td class="n key">20:15</td><td><strong>Cena — tenedor abajo a las 21:00.</strong> 200 g de pescado o pavo + 2 huevos · 350 g de verdura · <strong>sin pan</strong> · 15 g de AOVE</td><td class="n">560</td><td class="n">57</td><td class="n">14</td><td class="n">26</td></tr>
+        <tr style="background:var(--surface-2)"><td class="n key">Total</td><td>Fibra ≈ 32 g</td><td class="n"><strong>1.430</strong></td><td class="n"><strong>151</strong></td><td class="n"><strong>54</strong></td><td class="n"><strong>58</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Los ~20 g de proteína que faltan salen del cacito opcional de las 7:50 o de subir 40 g las raciones de la comida y la cena.</p>
+
+  <div class="call blue">
+    <span class="ct">Fin de semana · el gimnasio no abre hasta las 8:30</span>
+    <p>Te levantas a las 6:00–6:30 y tienes dos horas largas por delante. El espresso de antes de entrenar encaja sin problema — de hecho la cafeína rinde mejor tomada 45–60 min antes de la sesión que después.</p>
+    <p><strong>No comas en esa ventana.</strong> Cena del viernes cerrada a las 21:00 → entreno a las 8:30 son 11 h 30 min, prácticamente lo mismo que entre semana. Llegas igual de en ayunas y con la misma estructura.</p>
+    <ul style="margin-bottom:0">
+      <li><strong>06:15</strong> — Pesaje · espresso · agua con sal · creatina</li>
+      <li><strong>08:30</strong> — Sábado: accesorio (1.850 kcal) · Domingo: trail Z2 50–60 min (1.500 kcal)</li>
+      <li><strong>10:00</strong> — Post-entreno, que el sábado ya es un desayuno de verdad en casa: whey + avena, o huevos con pan integral y fruta</li>
+      <li><strong>14:00</strong> — Comida · <strong>17:30</strong> — Merienda si la comida cayó pronto · <strong>20:15</strong> — Cena, tenedor abajo a las 21:00</li>
+    </ul>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">El domingo el post-entreno de las 10:00 es opcional igual que el miércoles: un trail en Z2 no necesita rescate. Si prefieres esperar a la comida, adelante.</p>
+
+  <div class="call red">
+    <span class="ct">El agujero que no ves</span>
+    <p><strong>El aceite.</strong> Una cuchara «normal» de AOVE son 12–15 g, es decir 110–135 kcal. Tres al día sin pesar son <strong>350 kcal fantasma</strong> — casi la mitad de tu déficit, todos los días. Pesa el aceite con cuchara medidora o báscula. No hay ningún otro cambio en esta página con tanto retorno por tan poco esfuerzo.</p>
+  </div>
+
+  <div class="call">
+    <span class="ct">Fibra: 13 g → 35 g</span>
+    <p>Aquí vive tu hambre de las 22 h, y explica bastante bien los días de 4.000 kcal. Sube legumbre (garbanzos, lentejas) tres veces por semana, verdura en ambas comidas, fruta entera en vez de zumo, pan 100 % integral. La fibra no es salud abstracta: es saciedad medible por el mismo precio calórico.</p>
+  </div>
+
+  <h3>Cinco reglas que valen más que el menú</h3>
+  <ol class="rules">
+    <li><b>Media semanal, no diaria.</b> Un día a 2.400 no rompe nada si la semana cuadra. Tu problema no fue un día: fue que la media subió 500 kcal y no te enteraste.</li>
+    <li><b>Mínimo 40 g de proteína en cada toma.</b> Es el umbral que dispara la síntesis proteica, y lo que hace que llegues a la cena sin asaltar la despensa.</li>
+    <li><b>Registra antes de comer, no después.</b> Diez segundos, y convierte el registro en una decisión en vez de en una confesión.</li>
+    <li><b>El alcohol cuenta.</b> Dos cañas son 250 kcal y además frenan la oxidación de grasa esa noche. No hace falta eliminarlo: hace falta registrarlo.</li>
+    <li><b>Nada de «recuperar» calorías del ejercicio.</b> Esto merece su propia sección — sigue leyendo.</li>
+  </ol>
+</section>
+
+<!-- ============ 03 ALIMENTOS ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-n">03</span>
+    <h2>Los alimentos</h2>
+    <span class="aside">Qué llena 180 g de proteína sin gastar el presupuesto</span>
+  </div>
+
+  <p class="lede">En déficit la pregunta no es cuánta proteína tiene un alimento, sino <strong>cuánta proteína te da por cada 100 kcal que gastas</strong>. Esa columna es la que decide si 180 g caben en 1.700 kcal o te dejan sin margen para nada más.</p>
+
+  <div class="scroll">
+    <table>
+      <caption>Proteína por caloría<span class="cap-note">Valores por 100 g en crudo, salvo indicación. La última columna es la que importa.</span></caption>
+      <thead><tr><th>Alimento</th><th class="n">Proteína</th><th class="n">kcal</th><th class="n">g P / 100 kcal</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Pechuga de pavo</td><td class="n">24 g</td><td class="n">105</td><td class="n" style="color:var(--good);font-weight:600">22,9</td></tr>
+        <tr><td class="key">Atún al natural <span style="color:var(--muted);font-size:13px">(escurrido)</span></td><td class="n">26 g</td><td class="n">116</td><td class="n" style="color:var(--good);font-weight:600">22,4</td></tr>
+        <tr><td class="key">Bacalao fresco</td><td class="n">18 g</td><td class="n">82</td><td class="n" style="color:var(--good);font-weight:600">22,0</td></tr>
+        <tr><td class="key">Clara de huevo</td><td class="n">11 g</td><td class="n">52</td><td class="n" style="color:var(--good);font-weight:600">21,2</td></tr>
+        <tr><td class="key">Pechuga de pollo</td><td class="n">23 g</td><td class="n">110</td><td class="n" style="color:var(--good);font-weight:600">20,9</td></tr>
+        <tr><td class="key">Gambas, langostinos</td><td class="n">20 g</td><td class="n">99</td><td class="n" style="color:var(--good);font-weight:600">20,2</td></tr>
+        <tr><td class="key">Merluza</td><td class="n">17 g</td><td class="n">85</td><td class="n" style="color:var(--good);font-weight:600">20,0</td></tr>
+        <tr><td class="key">Whey <span style="color:var(--muted);font-size:13px">(por cacito de 30 g)</span></td><td class="n">24 g</td><td class="n">120</td><td class="n" style="color:var(--good);font-weight:600">20,0</td></tr>
+        <tr><td class="key">Queso batido 0 %</td><td class="n">11 g</td><td class="n">60</td><td class="n">18,3</td></tr>
+        <tr><td class="key">Solomillo de cerdo</td><td class="n">22 g</td><td class="n">120</td><td class="n">18,3</td></tr>
+        <tr><td class="key">Yogur griego 0 %</td><td class="n">10 g</td><td class="n">59</td><td class="n">17,0</td></tr>
+        <tr><td class="key">Ternera magra <span style="color:var(--muted);font-size:13px">(babilla, redondo)</span></td><td class="n">21 g</td><td class="n">130</td><td class="n">16,2</td></tr>
+        <tr><td class="key">Salmón</td><td class="n">20 g</td><td class="n">208</td><td class="n" style="color:var(--warn)">9,6</td></tr>
+        <tr><td class="key">Huevo entero <span style="color:var(--muted);font-size:13px">(1 ud. M)</span></td><td class="n">6,5 g</td><td class="n">78</td><td class="n" style="color:var(--warn)">8,3</td></tr>
+        <tr><td class="key">Lentejas cocidas</td><td class="n">9 g</td><td class="n">116</td><td class="n" style="color:var(--warn)">7,8</td></tr>
+        <tr><td class="key">Garbanzos cocidos</td><td class="n">9 g</td><td class="n">164</td><td class="n" style="color:var(--warn)">5,5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Los cuatro de abajo <strong>no son malos alimentos</strong> — el salmón lleva los omega 3 que si no tendrías que suplementar, el huevo entero es de lo más completo que existe y la legumbre es tu mejor fuente de fibra. Simplemente son caros en calorías por gramo de proteína, así que son donde gastas a propósito, no donde construyes la base.</p>
+
+  <h3>Cómo se llega a 35 g de fibra</h3>
+  <div class="scroll">
+    <table>
+      <caption>Un día cualquiera<span class="cap-note">De 13 g a 37 g sin añadir prácticamente calorías vacías.</span></caption>
+      <thead><tr><th>Dónde</th><th>Qué</th><th class="n">Fibra</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Comida</td><td>200 g de legumbre cocida (lenteja, garbanzo, alubia)</td><td class="n">16 g</td></tr>
+        <tr><td class="key">Comida + cena</td><td>300 g de verdura entre las dos: brócoli, alcachofa, espinaca, pimiento</td><td class="n">9 g</td></tr>
+        <tr><td class="key">Post-entreno</td><td>1 pieza de fruta entera con piel (pera, manzana)</td><td class="n">3 g</td></tr>
+        <tr><td class="key">Antes de dormir</td><td>80 g de frutos rojos en el yogur</td><td class="n">5 g</td></tr>
+        <tr><td class="key">Donde encaje</td><td>60 g de pan 100 % integral o 30 g de avena</td><td class="n">4 g</td></tr>
+        <tr style="background:var(--surface-2)"><td class="key">Total</td><td>Sube el agua en paralelo o la fibra se te hace bola</td><td class="n"><strong>37 g</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Sube de 13 g a 35 g <strong>en dos semanas, no en dos días</strong>: un salto brusco da gases e hinchazón, y la hinchazón se lee en la báscula como si fuera otra cosa.</p>
+
+  <h3>Suplementos</h3>
+
+  <div class="call red">
+    <span class="ct">Tu entrada «Supplements» merece una mirada</span>
+    <p>Aparece 19 días y aporta <strong>245–291 kcal con 38–50 g de carbohidratos</strong> y 29 g de proteína. Sobre un objetivo de 1.700 kcal eso es el <strong>15 % del presupuesto diario</strong> y casi la mitad de los carbohidratos que te tocan. Si es un ganador de peso o un preentreno cargado de azúcares, cambiarlo por whey a secas (120 kcal, 24 g de proteína, 3 g de carbohidratos) te devuelve <strong>~130 kcal al día</strong> sin perder nada de proteína. Eso es medio kilo al mes por cambiar un bote.</p>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <caption>Lo que tiene evidencia detrás<span class="cap-note">Ordenado por solidez, no por popularidad.</span></caption>
+      <thead><tr><th>Suplemento</th><th class="n">Dosis</th><th>Por qué en tu caso</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Creatina monohidrato</td><td class="n">5 g/día<br><span style="color:var(--muted);font-size:13px">con el agua de las 6:00</span></td><td>El suplemento con más evidencia que existe, y <strong>pesa más en déficit que en superávit</strong>: ayuda a sostener la fuerza mientras bajas calorías. La hora da igual, pero pegarla al vaso de agua de nada más levantarte es la forma de no olvidarla nunca. <strong>Aviso importante abajo.</strong></td></tr>
+        <tr><td class="key">Proteína whey</td><td class="n">1–2 cacitos</td><td>No es magia, es logística: sin ella llegar a 180 g con dos comidas es difícil. Compra la que esté de oferta, aísla o concentrada da igual.</td></tr>
+        <tr><td class="key">Vitamina D3</td><td class="n">1.000–2.000 UI</td><td>Invierno en Zaragoza, trabajo de interior, 43 años. Es de las carencias más comunes en España. Un análisis lo resuelve mejor que una suposición.</td></tr>
+        <tr><td class="key">Magnesio <span style="color:var(--muted);font-size:13px">(glicinato)</span></td><td class="n">200–300 mg noche</td><td>Calidad de sueño y calambres. Con un recién nacido en casa, cada punto de calidad de sueño que puedas comprar vale doble.</td></tr>
+        <tr><td class="key">Omega 3 <span style="color:var(--muted);font-size:13px">(EPA+DHA)</span></td><td class="n">1–2 g/día</td><td>Solo si no comes pescado azul dos veces por semana. Si mantienes el salmón, ahórratelo.</td></tr>
+        <tr><td class="key">Zinc</td><td class="n">—</td><td>Lo empezaste el 7 de septiembre. Solo aporta algo <strong>si hay déficit real</strong>; por encima de 40 mg/día sostenidos compite con la absorción de cobre. Merece una analítica antes que otro mes a ciegas.</td></tr>
+        <tr><td class="key">Cafeína</td><td class="n">Como ya la tomas</td><td>Entrenar temprano te resuelve gratis el problema que tiene todo el mundo: el americano de las 7:50 está eliminado mucho antes de la noche, así que <strong>puedes usarla sin tocar el sueño</strong>. El espresso del fin de semana, a 45–60 min de la sesión, es además el mejor momento posible para que rinda. Lo único que vigilar es el café de sobremesa — ese sí llega a la noche.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call">
+    <span class="ct">Si empiezas creatina esta semana, lee esto</span>
+    <p>La creatina mete agua <em>dentro</em> del músculo: <strong>entre 0,8 y 1,5 kg en las dos o tres primeras semanas</strong>. Vas a ver la báscula plana o subiendo justo cuando empieces el déficit, y no será un fallo del plan — será agua intramuscular, que es exactamente donde la quieres.</p>
+    <p style="margin-bottom:0">Dos formas de evitar el susto: o la empiezas <strong>ahora mismo</strong>, para que el agua entre durante la primera semana y luego la curva sea limpia, o la dejas para diciembre. Lo que no conviene es empezarla a mitad de la fase 1 y no saber qué estás midiendo.</p>
+  </div>
+
+  <h3>Fuera de casa, y el fin de semana</h3>
+  <p>Aquí es donde se te fue septiembre: los cinco días por encima de 2.870 kcal caen en fin de semana o en comida fuera. No hace falta dejar de salir, hace falta que salir cueste 800 kcal en vez de 1.400.</p>
+
+  <div class="scroll">
+    <table>
+      <caption>Menú del día, versión que cuadra<span class="cap-note">Un menú estándar ronda 900–1.400 kcal. Con estos cambios, 600–800.</span></caption>
+      <thead><tr><th>Plato</th><th>Qué pedir</th><th>Qué evitar</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Primero</td><td>Verdura a la plancha, ensalada con <strong>aliño aparte</strong>, legumbre sin chorizo, crema de verduras</td><td>Cremas con nata, ensaladilla, croquetas</td></tr>
+        <tr><td class="key">Segundo</td><td>Carne o pescado <strong>a la plancha</strong>, salsa aparte, <strong>doble guarnición de verdura</strong> en vez de patatas</td><td>Rebozados, guisos con salsa espesa, patatas fritas</td></tr>
+        <tr><td class="key">Pan</td><td>No aceptar la cesta. Se come solo, sin que te des cuenta</td><td>Dos rebanadas son 150 kcal invisibles</td></tr>
+        <tr><td class="key">Postre</td><td>Café solo o fruta</td><td>El postre del menú son 250–400 kcal</td></tr>
+        <tr><td class="key">Bebida</td><td>Agua. Si bebes, cuéntalo antes</td><td>Refrescos azucarados</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Alcohol, con números</h4>
+  <ul class="plain">
+    <li>Caña de 200 ml <span class="mono">≈ 90 kcal</span> · tercio de 330 ml <span class="mono">≈ 140 kcal</span> · copa de vino <span class="mono">≈ 125 kcal</span> · gin-tonic <span class="mono">≈ 200 kcal</span></li>
+    <li>Además de las calorías, frena la oxidación de grasa durante horas y destroza el sueño profundo. Con Alba a tres semanas vista, eso último pesa más que las calorías.</li>
+    <li><strong>No está prohibido: está presupuestado.</strong> Dos ocasiones por semana dentro de la media semanal, registradas antes de la primera copa. Registrar después es una confesión; registrar antes es una decisión.</li>
+  </ul>
+
+  <h4>Agua y sodio</h4>
+  <ul class="plain">
+    <li><strong>3,5 L al día</strong> (~35 ml/kg), más en los días de trail. La deshidratación se lee como pérdida de peso y la rehidratación como ganancia: otra razón por la que el dato diario miente.</li>
+    <li>Tu media de sodio (2.449 mg) está bien. El problema no es el nivel, son los picos — <strong>12.123 mg el 15 de septiembre</strong>. Buscas <strong>constancia</strong>, no mínimos: un sodio estable hace que la báscula sea legible.</li>
+  </ul>
+
+  <div class="call">
+    <span class="ct">Hay entradas corruptas en tu base de datos de MFP</span>
+    <p style="margin-bottom:0">Los días 30 ago, 3 sep y 5 sep aparecen con <strong>56.400 mg de potasio</strong> — la misma entrada guardada reutilizada tres veces. Lo real serían 3.000–4.000 mg. Si el potasio de esa entrada está mal por un factor de quince, <strong>sus calorías tampoco son de fiar</strong>. Localízala entre tus comidas o recetas guardadas y rehazla: está contaminando tres de tus treinta días.</p>
+  </div>
+</section>
+
+<!-- ============ 04 LOGGING ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-n">04</span>
+    <h2>El doble conteo</h2>
+    <span class="aside">~350 kcal/día de déficit evaporado</span>
+  </div>
+
+  <p class="lede">En tu export hay <strong>cero entradas de fuerza</strong>: las 21 sesiones aparecen como <span class="mono">"Aeróbic, general"</span>, sin series, repeticiones ni carga. Garmin las está clasificando como HIIT, y MFP les asigna hasta 409 kcal por sesión. Encima, el ajuste de pasos de iOS mete otras <strong>102 kcal/día</strong> por su cuenta.</p>
+
+  <div class="scroll">
+    <table>
+      <caption>Tres arreglos de diez minutos<span class="cap-note">Ordenados por impacto. El primero es el que te está costando el plan.</span></caption>
+      <thead><tr><th>Dónde</th><th>Qué hacer</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="key">MyFitnessPal</td>
+          <td>Ajustes → Pasos y ejercicio → <strong>desactivar «Ajuste de calorías»</strong>. Fija el objetivo manual en 1.850 / 1.500.</td>
+          <td>Tu objetivo deja de moverse solo. El gasto por entrenar ya está descontado en el mantenimiento de 2.460 que salió de tus datos — sumarlo otra vez es contarlo dos veces.</td>
+        </tr>
+        <tr>
+          <td class="key">Reloj Garmin</td>
+          <td>Cambia el perfil de actividad de <strong>HIIT → Fuerza</strong> antes de entrar al gimnasio. Es un menú, no una configuración.</td>
+          <td>HIIT estima ~2× las calorías de la misma sesión de fuerza. Además el perfil Fuerza autodetecta series y repeticiones, con lo que empiezas a tener historial de carga sin escribir nada.</td>
+        </tr>
+        <tr>
+          <td class="key">Registro de cargas</td>
+          <td>Anota la serie top de cada básico: peso × reps × RIR. Una línea por ejercicio.</td>
+          <td>En déficit el progreso no es subir kilos, es <strong>mantenerlos mientras bajas de peso</strong>. Sin registro no puedes ver esa victoria, y es la que demuestra que estás perdiendo grasa y no músculo.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 05 ENTRENAMIENTO ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-n">05</span>
+    <h2>Entrenamiento</h2>
+    <span class="aside">Tu rutina, ajustada al déficit</span>
+  </div>
+
+  <p class="lede">Tu PPL está bien construido y no lo voy a reescribir. Los cambios son tres, y todos van en la misma dirección: <strong>el volumen se queda, la intensidad baja un punto</strong>. Es lo contrario de lo que hace casi todo el mundo, y es lo que retiene músculo en déficit — el volumen mantiene el tejido, la proximidad al fallo solo añade fatiga que ahora no puedes pagar.</p>
+
+  <div class="week">
+    <div class="day lift"><div class="dn">Lun · 6:30</div><div class="dt">Push</div><div class="dd">Pecho, hombro, tríceps</div><div class="kc">1.850 kcal</div></div>
+    <div class="day lift"><div class="dn">Mar · 6:30</div><div class="dt">Pull</div><div class="dd">Espalda, bíceps, trapecio</div><div class="kc">1.850 kcal</div></div>
+    <div class="day run"><div class="dn">Mié · 6:30</div><div class="dt">Trail</div><div class="dd">Z2, 40–50 min · conversación posible todo el rato</div><div class="kc">1.500 kcal</div></div>
+    <div class="day lift"><div class="dn">Jue · 6:30</div><div class="dt">Legs</div><div class="dd">Cuádriceps, isquios, glúteo, gemelo</div><div class="kc">1.850 kcal</div></div>
+    <div class="day rest"><div class="dn">Vie · 6:30</div><div class="dt">Movilidad</div><div class="dd">30 min + paseo. Descarga tras pierna</div><div class="kc">1.500 kcal</div></div>
+    <div class="day lift"><div class="dn">Sáb · 8:30</div><div class="dt">Accesorio</div><div class="dd">Bombeo, RPE 7–8, core. El primero que se cae</div><div class="kc">1.850 kcal</div></div>
+    <div class="day run"><div class="dn">Dom · 8:30</div><div class="dt">Trail</div><div class="dd">Z2, 50–60 min</div><div class="kc">1.500 kcal</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Pierna el jueves con viernes de descarga detrás, y las dos carreras a más de 24 h de pierna. <strong>Suelo de pasos: 10.000/día</strong> (vas por 9.360) — es déficit gratis que no compite con la recuperación.</p>
+
+  <div class="call">
+    <span class="ct">Entrenar a las 6:30, en ayunas y en déficit</span>
+    <p><strong>Calienta más de lo que crees que necesitas.</strong> A las 6:30 vienes de ocho horas tumbado: temperatura corporal en su mínimo diario y articulaciones frías. Ocho o diez minutos —bici o remo suave, movilidad de lo que toque ese día, y tres o cuatro series de aproximación— valen más ahí que a las siete de la tarde. Es el momento del día en que saltarse el calentamiento sale más caro.</p>
+    <p><strong>Con el peso muerto, un matiz.</strong> Los discos intervertebrales están máximamente hidratados justo al levantarte, y eso hace que la carga espinal pesada a primera hora tenga algo más de margen de riesgo que por la tarde. No es para dejar de hacerlo: es un motivo más para las semanas alternas, el RPE 7 y los diez minutos de calentamiento.</p>
+    <p style="margin-bottom:0"><strong>Y ajusta la expectativa las primeras tres semanas.</strong> En ayunas, en déficit y a primera hora, las series top van a <em>sentirse</em> más pesadas con el mismo disco. Es normal y no significa que estés perdiendo fuerza. Por eso el plan pone RPE 7-8 y no 8-9: a las 6:30, con 1.850 kcal y sin desayunar, no se persiguen PRs.</p>
+  </div>
+
+  <div class="call blue">
+    <span class="ct">Dónde encaja el pesaje</span>
+    <p style="margin-bottom:0">Nada más levantarte, <strong>antes del vaso de agua y antes de entrenar</strong>, después del baño y sin ropa. Si te pesas al volver del gimnasio vas a registrar entre medio kilo y un kilo de sudor como si fuera progreso, y el lunes la media te mentirá en la dirección más desmotivante posible: la que te hace pensar que vas bien cuando no.</p>
+  </div>
+
+  <h3>Los tres ajustes</h3>
+
+  <div class="scroll">
+    <table>
+      <caption>Qué cambia respecto a tu hoja actual<span class="cap-note">Todo lo que no aparece aquí se queda exactamente como lo tienes.</span></caption>
+      <thead><tr><th>Ejercicio</th><th>Ahora</th><th>En déficit</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="key">Peso muerto convencional</td>
+          <td class="n">4 × 4-6 @ RPE 8<br><span style="color:var(--muted);font-size:13px">cada semana</span></td>
+          <td class="n">4 × 4-6 @ RPE 7<br><span class="chg">semanas alternas</span></td>
+          <td>Peso muerto pesado + peso muerto rumano el jueves es mucha columna para un déficit. Alterna: una semana sí, una no. Las que no, barra hexagonal o más remo.</td>
+        </tr>
+        <tr>
+          <td class="key">Sentadilla · Press banca · Press militar</td>
+          <td class="n">4 × 4-6 @ RPE 8</td>
+          <td class="n">4 × 4-6 @ <strong>RPE 7-8</strong><br><span class="chg">RIR 2-3 en la serie top</span></td>
+          <td>Mismo estímulo, menos coste articular y nervioso. Con sueño roto, la serie a RIR 0 es la que te lesiona.</td>
+        </tr>
+        <tr>
+          <td class="key">Peso muerto rumano</td>
+          <td class="n">4 × 6-8 @ RPE 8</td>
+          <td class="n">3 × 8-10 @ RPE 7</td>
+          <td>Más rango, menos carga absoluta. El isquio sigue trabajando, la espalda baja descansa.</td>
+        </tr>
+        <tr>
+          <td class="key">Todo lo demás</td>
+          <td class="n">—</td>
+          <td class="n"><strong>Sin cambios</strong></td>
+          <td>Series, repeticiones y RPE de accesorios se mantienen. El volumen es lo que protege el músculo: no se recorta.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call blue">
+    <span class="ct">Zona 2, no HIIT</span>
+    <p>Tus carreras a 8–8,4 km/h ya están cerca de Z2 y así deben quedarse: ritmo de conversación, sin buscar sensaciones. El cardio de alta intensidad compite por la misma recuperación que la sentadilla y el peso muerto, y en déficit esa cuenta ya está en números rojos. La carrera está para sumar gasto barato, no para ser otro entrenamiento duro.</p>
+  </div>
+
+  <div class="call">
+    <span class="ct">Qué se cae primero, y en qué orden</span>
+    <p>Cuando llegue Alba y la semana se rompa, no improvises. El orden está decidido de antemano:</p>
+    <ul>
+      <li><strong>1.º</strong> El día accesorio del sábado</li>
+      <li><strong>2.º</strong> Una de las dos carreras</li>
+      <li><strong>3.º</strong> Fusiona Push y Pull en un full-body de 45 min</li>
+      <li><strong>Nunca:</strong> la proteína y los pasos. Son lo que sostiene el resultado cuando no se entrena.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 06 HITOS ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-n">06</span>
+    <h2>Hitos</h2>
+    <span class="aside">Marca al alcanzarlos</span>
+  </div>
+
+  <ul class="ms" id="ms-scale">
+    <li data-k="m1"><input type="checkbox" id="ms1" aria-label="Hito 101,0 kg"><div class="mtxt"><div class="mtitle"><span class="mw">101,0</span>Recuperar el mínimo del 9 de septiembre</div><div class="msub">Vuelves al punto donde se paró, con déficit real esta vez</div></div><div class="mdate">~6 oct</div></li>
+    <li data-k="m2" class="star"><input type="checkbox" id="ms2" aria-label="Hito 99,9 kg"><div class="mtxt"><div class="mtitle"><span class="mw">99,9</span>Dos cifras</div><div class="msub">El primero que se siente de verdad. No lo has visto en años</div></div><div class="mdate">~20 oct</div></li>
+    <li data-k="m3" class="star"><input type="checkbox" id="ms3" aria-label="Hito mantener 99,4 kg durante la fase 2"><div class="mtxt"><div class="mtitle"><span class="mw">99,4</span>Salir de la fase Alba sin haber subido</div><div class="msub">El hito más difícil de los siete, y el que decide si esto funciona. Aguantar seis semanas sin perder terreno con un recién nacido en casa vale más que cualquier bajada rápida</div></div><div class="mdate">~1 dic</div></li>
+    <li data-k="m4"><input type="checkbox" id="ms4" aria-label="Hito 97,5 kg"><div class="mtxt"><div class="mtitle"><span class="mw">97,5</span>Casi 5 kg desde hoy</div><div class="msub">Navidad justo detrás: un día, no una semana</div></div><div class="mdate">~22 dic</div></li>
+    <li data-k="m5" class="star"><input type="checkbox" id="ms5" aria-label="Hito 95,0 kg"><div class="mtxt"><div class="mtitle"><span class="mw">95,0</span>Mitad del camino</div><div class="msub">Aquí la ropa ya no disimula — es donde la gente empieza a preguntar</div></div><div class="mdate">~12 ene</div></li>
+    <li data-k="m6"><input type="checkbox" id="ms6" aria-label="Hito 92,5 kg"><div class="mtxt"><div class="mtitle"><span class="mw">92,5</span>Los últimos dos kilos y medio a la vista</div><div class="msub">Revisa calorías: a 92 kg tu mantenimiento ya no es el de 102</div></div><div class="mdate">~9 feb</div></li>
+    <li data-k="m7" class="star"><input type="checkbox" id="ms7" aria-label="Hito 90,0 kg"><div class="mtxt"><div class="mtitle"><span class="mw">90,0</span>Objetivo</div><div class="msub">IMC 27,2 desde 30,9. Y la pregunta interesante pasa a ser qué construyes encima</div></div><div class="mdate">~2 mar</div></li>
+  </ul>
+
+  <h3>Hitos que no son la báscula</h3>
+  <p>Estos importan más cuando la báscula se atasca, y se va a atascar. Son la prueba de que estás perdiendo grasa y no músculo.</p>
+  <ul class="ms" id="ms-nsv">
+    <li data-k="n1"><input type="checkbox" id="nsv1" aria-label="Hito cintura"><div class="mtxt"><div class="mtitle">Cintura −4 cm al acabar la fase 1</div><div class="msub">Mide a la altura del ombligo, lunes por la mañana, en ayunas, sin meter tripa. Es la medida que sigue bajando las semanas que la báscula miente</div></div><div class="mdate">20 oct</div></li>
+    <li data-k="n2"><input type="checkbox" id="nsv2" aria-label="Hito press banca"><div class="mtxt"><div class="mtitle">Mantener la carga en banca y sentadilla toda la fase 1</div><div class="msub">Mismo peso a 102 kg que a 99,4 significa que lo que se fue era grasa</div></div><div class="mdate">20 oct</div></li>
+    <li data-k="n3"><input type="checkbox" id="nsv3" aria-label="Hito dominadas"><div class="mtxt"><div class="mtitle">+3 repeticiones en dominadas estrictas</div><div class="msub">Serie máxima una vez al mes. Con 12 kg menos que mover, deberían caer solas</div></div><div class="mdate">mensual</div></li>
+    <li data-k="n4"><input type="checkbox" id="nsv4" aria-label="Hito registro"><div class="mtxt"><div class="mtitle">30 días seguidos registrados dentro de ±150 kcal</div><div class="msub">El hito más aburrido de la lista y el que mejor predice el resultado</div></div><div class="mdate">21 oct</div></li>
+    <li data-k="n5"><input type="checkbox" id="nsv5" aria-label="Hito trail"><div class="mtxt"><div class="mtitle">Mismo circuito de trail, 1 min/km más rápido</div><div class="msub">Al mismo pulso. Es potencia relativa: mejora sola según baja el peso</div></div><div class="mdate">fase 3</div></li>
+  </ul>
+  <p class="ms-note">Las marcas se guardan solo en este navegador.</p>
+</section>
+
+<!-- ============ 07 REVISIÓN ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-n">07</span>
+    <h2>Revisión de los lunes</h2>
+    <span class="aside">Cinco minutos · reglas fijadas de antemano</span>
+  </div>
+
+  <p class="lede">Las decisiones se toman ahora, en frío, no un martes a las once de la noche con hambre. Esto es lo que convierte el plan en un sistema con realimentación en vez de en una lista de buenas intenciones.</p>
+
+  <div class="scroll">
+    <table>
+      <caption>Qué hacer con el número<span class="cap-note">Compara la media de 7 días con la media de los 7 días anteriores. Nunca peso suelto contra peso suelto.</span></caption>
+      <thead><tr><th class="n">Cambio semanal</th><th>Lectura</th><th>Acción</th></tr></thead>
+      <tbody>
+        <tr><td class="n key">−0,4 a −1,0 kg</td><td>En rango</td><td><span style="color:var(--good);font-weight:600">No tocar nada.</span> Sigue exactamente igual otra semana.</td></tr>
+        <tr><td class="n key">Menos de −0,4 kg<br><span style="color:var(--muted);font-size:13px">dos semanas seguidas</span></td><td>Déficit insuficiente o registro que se ha relajado</td><td>Primero revisa el aceite y las bebidas de la semana. Si el registro está limpio, <strong>−150 kcal en los días de fuerza</strong> (1.850 → 1.700).</td></tr>
+        <tr><td class="n key">Más de −1,0 kg<br><span style="color:var(--muted);font-size:13px">dos semanas seguidas</span></td><td>Demasiado rápido — aquí es donde sí se pierde músculo</td><td><strong>+150 kcal</strong> en los días de fuerza. Bajar más rápido no te lleva antes a 90 en buena forma.</td></tr>
+        <tr><td class="n key">Subida brusca<br><span style="color:var(--muted);font-size:13px">un solo día</span></td><td>Agua y sodio, no grasa</td><td><strong>Ignorar.</strong> Ver el recuadro de abajo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call blue">
+    <span class="ct">Prueba de ello, en tus propios datos</span>
+    <p>El 15 de septiembre registraste <strong>4.043 kcal y 12.123 mg de sodio</strong>. A la mañana siguiente la báscula marcó <strong>+1,8 kg</strong>: de 100,4 a 102,2. Ganar 1,8 kg de grasa en un día requeriría unas 14.000 kcal de superávit, que no existieron. Era agua, retenida por el sodio, y se fue sola en tres días.</p>
+    <p style="margin-bottom:0">Esa mañana es exactamente el tipo de dato que hace abandonar un plan que iba bien. Por eso solo se juzga la media de siete días.</p>
+  </div>
+
+  <h4>Además del peso, anota cada lunes tres cosas del 1 al 5</h4>
+  <ul class="plain">
+    <li><strong>Sueño</strong> · <strong>Articulaciones</strong> (hombro, lumbar, rodilla) · <strong>Energía en el gimnasio</strong></li>
+    <li>Dos cualesquiera en 2 o menos → esa semana cae el día accesorio del sábado y las series top bajan a RPE 6-7. No es debilidad: es el mecanismo que evita las seis semanas de baja por lesión.</li>
+    <li>Tres semanas seguidas con todo en 4-5 y pérdida por debajo de −0,4 → puedes apretar 150 kcal más.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-n">08</span>
+    <h2>Esta semana</h2>
+    <span class="aside">22 – 28 sep · empieza hoy, no el lunes</span>
+  </div>
+  <ol class="rules">
+    <li><b>Configura MFP.</b> Dos objetivos por día de la semana — <span class="mono">1.850 · P180/C150/G58</span> en lun-mar-jue-sáb y <span class="mono">1.500 · P170/C65/G62</span> en mié-vie-dom — y <b>desactiva el ajuste de calorías por ejercicio</b>. Cinco minutos, y es el cambio con más impacto de toda la página.</li>
+    <li><b>Decide hoy lo de la creatina:</b> o empiezas esta misma semana o la dejas para diciembre. Empezarla a mitad de la fase 1 te deja sin saber qué está midiendo la báscula.</li>
+    <li><b>Cambia el perfil del Garmin de HIIT a Fuerza.</b> Hazlo antes de la sesión de mañana.</li>
+    <li><b>Compra una báscula de cocina si no la tienes, y pesa el aceite</b> durante siete días. Solo el aceite. Vas a ver de dónde salían 300 kcal.</li>
+    <li><b>Pésate cada mañana</b> al levantarte, tras el baño, <b>antes del agua y antes de entrenar</b>, sin ropa. Anota y no mires el número suelto: el lunes miras la media.</li>
+    <li><b>Mídete la cintura hoy</b> a la altura del ombligo y apunta el número. Sin él no hay comparación dentro de cuatro semanas.</li>
+    <li><b>Deja el batido y la avena preparados esta noche</b>, junto a la bolsa del gimnasio. El post-entreno de las 8:00 solo funciona si no hay que pensarlo a las siete y cuarto de la mañana — y es la pieza de la que depende que los 12 kg que se van sean de grasa.</li>
+    <li><b>Sube la proteína a 180 g desde mañana.</b> Es el cambio que más vas a notar en hambre, y el más difícil de improvisar: mira hoy si tienes whey, pollo y yogur griego en casa.</li>
+  </ol>
+</section>
+
+<footer>
+  <span>Plan construido sobre 30 días de MyFitnessPal y Garmin · 24 ago – 22 sep 2026</span>
+  <span class="mono">Revisión: lunes · Recalibrado: 20 oct</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY='ruta90.milestones.v1';
+  var state={};
+  try{ var raw=localStorage.getItem(KEY); if(raw) state=JSON.parse(raw)||{}; }catch(e){ state={}; }
+
+  var items=document.querySelectorAll('#ms-scale li, #ms-nsv li');
+  Array.prototype.forEach.call(items,function(li){
+    var k=li.getAttribute('data-k');
+    var box=li.querySelector('input[type=checkbox]');
+    if(!box||!k) return;
+    if(state[k]){ box.checked=true; li.classList.add('done'); }
+    box.addEventListener('change',function(){
+      li.classList.toggle('done',box.checked);
+      state[k]=box.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+    });
+  });
+})();
+</script>
+
+</body></html>

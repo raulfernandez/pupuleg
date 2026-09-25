@@ -13,6 +13,8 @@ data/programa.js     todo el contenido del programa como datos (fases, slots, ej
 data/app.js          lógica de render: pestañas de fase, selector de bloque A/B/C, disclosure de variantes
 assets/img/          fotos de demostración (inicio/final) por ejercicio, dataset free-exercise-db
 docs/plan-v2.md       especificación completa del programa (fases, catálogo de variantes, reglas)
+ruta-a-90.html       plan de pérdida de peso a 90 kg: fases, macros, suplementos, hitos, revisión semanal
+menu.html            menú semanal interactivo (1.850 / 1.500 kcal) con opciones intercambiables y lista de la compra
 ```
 
 ## Editar el programa
@@ -39,3 +41,10 @@ Las variantes nuevas sin foto muestran un marcador neutro con enlace a MuscleWik
 bloquear el contenido. Para añadir una foto real, cae el par de imágenes en `assets/img/` con
 el mismo id del ejercicio (`<id>-0.jpeg` inicio, `<id>-1.jpeg` final) y referencia las rutas
 en `imagen0`/`imagen1`.
+
+## Plan y menú (nutrición)
+
+`ruta-a-90.html` y `menu.html` son páginas autocontenidas (sin dependencias salvo Google Fonts),
+enlazadas desde la barra de navegación. No leen `data/programa.js`: el contenido va dentro de cada
+archivo. En `menu.html` las opciones y los valores nutricionales por 100 g están en las constantes
+`O` y `F` del `<script>`; las marcas de hitos y la selección del menú se guardan en `localStorage`.
